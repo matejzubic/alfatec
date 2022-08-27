@@ -1,0 +1,9 @@
+<% if (errors !== undefined) { %>
+    <div class="error-bubble">
+        <% for(error in errors) { %>
+            <div>
+                <%= errors[error] %>
+            </div>
+        <% } %>
+    </div>
+<% } %>

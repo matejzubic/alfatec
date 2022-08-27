@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Souverniers accounting</title>
+        <link rel="stylesheet" type="text/css" href="styles/table.scss" />
+		<script src="./scripts/main.js"></script>
+    </head>
+    <body>
+    
+	<%- include('layout/header.ejs') %>	
+
+	<div class="main-container">
+		<div class="add-item-container">
+			<form action="/<%= curIndex %>" method="post">
+				<input class="stylized-button" type="submit" value='Sort by : '>
+				<select class="stylized-button" id="sort" name="sort">
+  					<option value="name">name</option>
+  					<option value="color">color</option>
+  					<option value="quantity">quantity</option>
+				</select>
+				<select class="stylized-button" id="order" name="order">
+					<option value="asc">ascending</option>
+					<option value="desc">descending</option>
+				</select>
+			</form>
+			<button class="stylized-button" onclick="location.assign('/add')">Add souvenier</button>
+		</div>
+
+		<div class="filter-container">
+			<form action="/<%= curIndex %>" method="post">
+				<input class="stylized-button page-text" type="submit" value='Filter by : '>
+				<select class="stylized-button" name="filter" id="filter">
+					<option value="name">name</option>
+					<option value="color">color</option>
+					<option value="quantity">quantity</option>
+					<option value="description">description</option>
+		  		</select>
+		  		<input class="form-button" type="text" name="filterData" id="filterData"></input>
+			</form>
+		</div>
+
+		<%- include('partials/pageSelector.ejs') %>	
+		
+		<div class="table-container">
+
+			<% if (pageData) { %>
+				<% pageData.forEach(function(product){ %>
+					<div class="souvenir-item <%= product.quantity == 0 ? 'unavailable' : 'available' %>">
+						<img class="souvenir-image" src="https://live.staticflickr.com/3265/2314823636_c86f40376d_b.jpg" alt="">
+						<div class="souvenir-data">
+							<div class="souvenir-data-text">Name : <%= product.name %></div>
+							<div class="souvenir-data-text">Color : <%= product.color %></div>
+							<div class="souvenir-data-text<%= product.quantity == 0 ? ' no-product' : ' ' %>">Quantity : <%= product.quantity %></div> 
+						</div>
+						<div class="manage-souvenir" style="float:left; padding-top: 0.5em;">
+							<button class="popup-link stylized-button" onclick="openPopup('<%= product.id %>')">more</button>
+							<span class="popup" id="popup-<%= product.id %>"> 
+								<h2><%= product.name %> description</h2>
+								<div class="popup-text">
+									<%= (product.description == "") ? "There's no description." : product.description %>
+								</div>
+								<button class="stylized-button" onclick="closePopup('<%= product.id %>')">Close</button>
+							</span>
+							<button class="stylized-button" onclick="location.assign('/edit/<%= product.id %>')">edit</button>
+							<form class="table-form" method="post" action="/delete/<%= product.id %>">
+								<input class="stylized-button" type="submit" name="delete" value='delete' onClick="return confirm('Are you sure you want to delete item?');" />
+							</form>
+						</div>
+					</div>
+				<% }) %>
+			<% } %>
+		</div>
+
+		<%- include('partials/pageSelector.ejs') %>
+		
+	</div>
+	
+
+	<%- include('layout/footer.ejs') %>	
+
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+<div class="page-selector">
+    <% if (curIndex > 1) { %>
+        <button class="stylized-button" onclick="location.assign('/<%= curIndex - 1 %>')">
+            <i class="arrow left"></i>
+        </button>
+    <% } %>
+    <% 
+        var buttonsLength = 4;
+        var pagesBefore = Math.floor((curIndex - 0.51) / buttonsLength);
+        var pagesAfter = pagesBefore + 2;
+    %>
+    <% if (pagesBefore > 0) { %>
+        <button class="stylized-button" onclick="location.assign('/' + '<%= pagesBefore * buttonsLength %>')">
+            <i class="help-text">
+                <%= (pagesBefore * buttonsLength - buttonsLength + 1) + '-' + pagesBefore * buttonsLength %>
+            </i>
+        </button>
+    <% } %>
+    <%
+        var begin = pagesBefore * buttonsLength + 1;
+        var rightLimit = (pagesBefore + 1) * buttonsLength; 
+        var end = rightLimit < numOfPages ? rightLimit : numOfPages;
+    %>
+    <% for(var i = begin; i <= end; i++) { %>
+        <button class="stylized-button<%= curIndex == i ? ' selected' : ' ' %>" onclick="location.assign('/' + '<%= i %>')">
+            <i class="help-text"></i>
+                <%= i %>
+            </i>
+        </button>
+    <% } %>
+    <% if ((pagesAfter - 1) * buttonsLength < numOfPages) { %>
+        <%
+            var begin = (pagesAfter - 1) * buttonsLength + 1;
+            var end = pagesAfter * buttonsLength >= numOfPages ? numOfPages : pagesAfter * buttonsLength; 
+        %>
+        <button class="stylized-button" onclick="location.assign('/' + '<%= begin %>')">
+            <i class="help-text">
+                <%= begin == end ? begin : begin + '-' + end%>
+            </i>
+        </button>
+    <% } %>
+    <% %>
+    <% %>
+    <% if (curIndex < numOfPages) { %>
+        <button class="stylized-button" onclick="location.assign('/<%= Number(curIndex) + 1 %>')">
+            <i class="arrow right"></i>
+        </button>
+    <% } %>
+</div>

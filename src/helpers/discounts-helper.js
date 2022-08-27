@@ -1,0 +1,1 @@
+export const calculateDscount = (amount, discountPercentage) => Math.round( (amount - (discountPercentage/100)*amount) * 100 + Number.EPSILON ) / 100

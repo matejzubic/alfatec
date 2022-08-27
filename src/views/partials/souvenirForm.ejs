@@ -1,0 +1,37 @@
+<div class="form-wrapper">
+    <form action='<%= souvenir ? "/edit/" + souvenir.id : "/add" %>' method=post>
+        <div class="form-title">
+            <% souvenir ? "Add souvenir" : "Edit souvenir" %>
+        </div>
+        <div class="form-item">
+            <label for="name">Name :</label>
+            <input class="form-button" type="text" name="name" value='<%= souvenir ? souvenir.name : "" %>'>
+        </div>
+        <div class="form-item">
+            <label for="barCode">Bar code :</label>
+            <input class="form-button" type="text" name="barCode" value='<%= souvenir ?  souvenir.barCode : "" %>'>
+        </div>
+        <div class="form-item">
+            <label for="color">Color :</label>
+            <input class="form-button" type="text" name="color" value='<%= souvenir ? souvenir.color : "" %>'>
+        </div>
+        <div class="form-item">
+            <label for="quantity">Quantity :</label>
+            <input class="form-button" type="number" name="quantity" value='<%= souvenir ? souvenir.quantity : "" %>'>
+        </div>
+        <div class="form-item">
+            <label for="url">Image url :</label>
+            <input class="form-button" type="text" name="url" value='<%= souvenir ? souvenir.productImageUrl : "" %>'>
+        </div>
+        <div class="description-box">
+            <label for="description">Description :</label>
+            <textarea class="form-button" name="description" id="description" cols="60" rows="5">
+                <%= souvenir ? souvenir.description : "" %>
+            </textarea>
+        </div>
+        <div class="button-container">
+            <input class="stylized-button" type="submit" value="Submit">
+            <input class="stylized-button" type="reset" value="Reset">
+        </div>
+    </form>
+</div>
